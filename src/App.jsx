@@ -1,6 +1,11 @@
 import React from "react";
 import OrbitBrightel from "./Components/OrbitBrightel";
 import { FaCalculator, FaUsersCog, FaCloud, FaHandshake, FaRegChartBar, FaFileInvoiceDollar } from "react-icons/fa";
+import {
+  FaUtensils, FaStethoscope, FaGasPump, FaShoppingCart, FaBriefcase,
+  FaHardHat, FaLandmark, FaHandsHelping, FaLaptopCode
+} from "react-icons/fa";
+
 
 
 // Generic image placeholder – swap for your <img/> or Next.js <Image/>
@@ -214,49 +219,68 @@ export default function ScaleAccountingLanding() {
   </div>
 </section>
 
-      {/* WIDE CTA */}
-      <section className="relative">
-        <div className="mx-auto max-w-7xl px-4 py-10">
-          <div className="relative overflow-hidden rounded-2xl">
-            <img src="/Cta.png" alt="" />
-            <div className="absolute inset-0 bg-[#1a4480]/10"></div>
-            <div className="absolute inset-0 p-6 sm:p-10 md:p-14 flex items-center">
-              <div className="text-white max-w-xl">
-                <p className="text-xl font-semibold uppercase tracking-widest text-[#fdb81e]">Compliance without chaos</p>
-                <h3 className="mt-2 text-2xl sm:text-4xl font-semibold">Put your accounting, payroll, and filings in expert hands.</h3>
-                <button className="mt-4 rounded-lg bg-[#fdb81e] px-4 py-2.5 text-[#1a4480] font-medium hover:brightness-95">
-                  Book Your Consultation
-                </button>
-              </div>
-            </div>
-          </div>
+ {/* WIDE CTA */}
+<section className="relative">
+  <div className="mx-auto max-w-7xl px-4 py-6"> {/* reduced from py-10 → py-6 */}
+    <div className="relative overflow-hidden rounded-2xl">
+      <img
+        src="/Cta.png"
+        alt="Brightel CTA"
+        className="w-full h-[560px] object-cover" // 🔥 set fixed image height
+      />
+      <div className="absolute inset-0 bg-[#1a4480]/10"></div>
+      <div className="absolute inset-0 p-4 sm:p-8 md:p-10 flex items-center">
+        <div className="text-white max-w-lg">
+          <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#fdb81e]">
+            Compliance without chaos
+          </p>
+          <h3 className="mt-2 text-xl sm:text-2xl font-semibold leading-snug">
+            Put your accounting, payroll, and filings in expert hands.
+          </h3>
+          <button className="mt-4 rounded-lg bg-[#fdb81e] px-4 py-2 text-[#1a4480] font-medium hover:brightness-95">
+            Book Your Consultation
+          </button>
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* INDUSTRIES */}
-      <section id="industries" className="bg-white">
-        <div className="mx-auto max-w-7xl px-4 py-12">
-          <h3 className="text-lg font-semibold">Industries We Serve</h3>
-          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              "Restaurants & Franchise Owners",
-              "Medical & Dental Offices",
-              "Convenience Stores & Gas Stations",
-              "Retail & E-Commerce",
-              "Professional & Service Firms",
-              "Construction & Trade Businesses",
-              "Government Contractors",
-              "Nonprofits",
-              "Technology & Startups",
-            ].map((name, i) => (
-              <div key={i} className="rounded-xl border border-slate-200 p-5 bg-white">
-                <h4 className="font-medium">{name}</h4>
-                <p className="mt-2 text-sm text-slate-600">Specialized bookkeeping, compliance, and reporting tailored to your model.</p>
-              </div>
-            ))}
+<section id="industries" className="bg-white">
+  <div className="mx-auto max-w-7xl px-4 py-12">
+    <h3 className="text-lg font-semibold text-[#1a4480]">Industries We Serve</h3>
+
+    <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {[
+        { name: "Restaurants & Franchise Owners", icon: <FaUtensils className="text-[#fdb81e] text-2xl" /> },
+        { name: "Medical & Dental Offices", icon: <FaStethoscope className="text-[#fdb81e] text-2xl" /> },
+        { name: "Convenience Stores & Gas Stations", icon: <FaGasPump className="text-[#fdb81e] text-2xl" /> },
+        { name: "Retail & E-Commerce", icon: <FaShoppingCart className="text-[#fdb81e] text-2xl" /> },
+        { name: "Professional & Service Firms", icon: <FaBriefcase className="text-[#fdb81e] text-2xl" /> },
+        { name: "Construction & Trade Businesses", icon: <FaHardHat className="text-[#fdb81e] text-2xl" /> },
+        { name: "Government Contractors", icon: <FaLandmark className="text-[#fdb81e] text-2xl" /> },
+        { name: "Nonprofits", icon: <FaHandsHelping className="text-[#fdb81e] text-2xl" /> },
+        { name: "Technology & Startups", icon: <FaLaptopCode className="text-[#fdb81e] text-2xl" /> },
+      ].map((item, i) => (
+        <div
+          key={i}
+          className="flex items-start gap-4 rounded-xl border border-slate-200 p-5 bg-white hover:shadow-md transition-shadow duration-200"
+        >
+          <div className="flex-shrink-0 mt-1">
+            {item.icon}
+          </div>
+          <div>
+            <h4 className="font-medium text-[#1a4480]">{item.name}</h4>
+            <p className="mt-2 text-sm text-slate-600">
+              Specialized bookkeeping, compliance, and reporting tailored to your model.
+            </p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
      {/* KEY DATES / COUNTDOWN */}
 <section id="dates" className="bg-[#f5f6f7]">
