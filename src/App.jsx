@@ -1,346 +1,354 @@
-import React from "react";
+// ScaleAccountingLanding.jsx
+import React, { useState } from "react";
+import { Link } from "react-scroll";
 import OrbitBrightel from "./Components/OrbitBrightel";
-import { FaCalculator, FaUsersCog, FaCloud, FaHandshake, FaRegChartBar, FaFileInvoiceDollar } from "react-icons/fa";
+import HighlightsSection from "./Components/HighlightsSection";
+
+// Icons
 import {
+  FaCalculator, FaUsersCog, FaCloud, FaHandshake, FaRegChartBar, FaFileInvoiceDollar,
   FaUtensils, FaStethoscope, FaGasPump, FaShoppingCart, FaBriefcase,
   FaHardHat, FaLandmark, FaHandsHelping, FaLaptopCode
 } from "react-icons/fa";
-
-
-
-// Generic image placeholder – swap for your <img/> or Next.js <Image/>
-const ImageSlot = ({ label = "IMAGE", className = "", ratio = "[--ar:56.25%]" }) => (
-  <div
-    className={`relative w-full overflow-hidden bg-[#f5f6f7] rounded-xl ${className}`}
-    style={{ "--ar": "56.25%" }}
-  >
-    <div className={`pt-[var(--ar)]`}></div>
-    <div className="absolute inset-0 grid place-items-center text-xs uppercase tracking-widest text-[#5c5c5c]">
-      {label}
-    </div>
-  </div>
-);
-
-const Icon = ({ className = "" }) => (
-  <div className={`h-10 w-10 rounded-full bg-[#fdb81e] text-[#1a4480] grid place-items-center font-bold ${className}`}>
-    ★
-  </div>
-);
-
-const StatDot = () => <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#fdb81e] align-middle" />;
+import { FiMenu, FiX } from "react-icons/fi";
 
 export default function ScaleAccountingLanding() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
   return (
-    <div className="font-sans text-slate-800">
+    <div className="text-slate-800">
       {/* Top utility bar */}
-      <div className="w-full bg-[#1a4480] text-white text-[11px]">
-        <div className="mx-auto max-w-7xl px-4 py-2 flex items-center gap-4 justify-between">
-          <div className="flex items-center gap-4">
-            {/* Removed address/locations */}
-            <span className="hidden sm:inline opacity-90">info@brighteltax.com</span>
-          </div>
-          <div className="flex items-center gap-2">
-            {/* Removed Client Login */}
-            <button className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium hover:brightness-95">
-              (XXX) XXX-XXXX
-            </button>
-          </div>
+      <div className="w-full bg-[#1a4480] text-white text-[13px]">
+        <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
+          <span className="hidden sm:inline opacity-90">info@brighteltax.com</span>
+          <button className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium hover:brightness-95">
+            (XXX) XXX-XXXX
+          </button>
         </div>
       </div>
 
       {/* Header / Nav */}
-      <header className="sticky top-0 z-30 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/70 border-b border-[#005ea2]/20">
-        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center gap-6 justify-between">
-          <div className="flex items-center gap-2">
-            <div className="h-8 w-36 rounded bg-[#1a4480] grid place-items-center text-white text-[11px]">
-              BRIGHTEL TAX SERVICES
-            </div>
-          </div>
+      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#005ea2]/20">
+        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
+          {/* Brand */}
+          <h1 className="text-xl sm:text-2xl font-bold text-[#1a4480]">
+            Brightel Tax
+          </h1>
+
+          {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
-            <a className="hover:text-[#005ea2]" href="#services">Services</a>
-            <a className="hover:text-[#005ea2]" href="#who">Who We Are</a>
-            <a className="hover:text-[#005ea2]" href="#industries">Industries</a>
-            <a className="hover:text-[#005ea2]" href="#dates">Key Dates</a>
-            <a className="hover:text-[#005ea2]" href="#resources">IRS Resources</a>
-            <a className="hover:text-[#005ea2]" href="#contact">Contact</a>
+            {[
+              ["Services", "services"],
+              ["Who We Are", "who"],
+              ["Industries", "industries"],
+              ["Key Dates", "dates"],
+              ["IRS Resources", "resources"],
+              ["Contact", "contact"],
+            ].map(([label, id]) => (
+              <Link
+                key={id}
+                to={id}
+                smooth
+                duration={700}
+                offset={-80}
+                spy
+                activeClass="text-[#fdb81e]"
+                className="hover:text-[#005ea2] cursor-pointer transition-colors"
+              >
+                {label}
+              </Link>
+            ))}
           </nav>
-          <div className="flex items-center gap-2">
-            <button className="hidden sm:inline rounded-lg border border-[#005ea2] text-[#005ea2] px-3 py-2 text-sm hover:bg-[#d9e8f6]">
+
+          {/* Desktop CTA */}
+          <div className="hidden md:flex items-center gap-2">
+            <button className="rounded-lg border border-[#005ea2] text-[#005ea2] px-3 py-2 text-sm hover:bg-[#d9e8f6]">
               Book Your Consultation
             </button>
-            {/* Removed: Get a Quote button */}
+          </div>
+
+          {/* Mobile Hamburger */}
+          <button
+            aria-label="Toggle navigation"
+            onClick={() => setMobileOpen((v) => !v)}
+            className="md:hidden inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-700"
+          >
+            {mobileOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-slate-200 ${
+            mobileOpen ? "max-h-96" : "max-h-0"
+          }`}
+        >
+          <div className="px-4 py-3 space-y-2 bg-white">
+            {[
+              ["Services", "services"],
+              ["Who We Are", "who"],
+              ["Industries", "industries"],
+              ["Key Dates", "dates"],
+              ["IRS Resources", "resources"],
+              ["Contact", "contact"],
+            ].map(([label, id]) => (
+              <Link
+                key={id}
+                to={id}
+                smooth
+                duration={700}
+                offset={-80}
+                onClick={() => setMobileOpen(false)}
+                className="block py-2 hover:text-[#005ea2] cursor-pointer"
+              >
+                {label}
+              </Link>
+            ))}
+            <button
+              onClick={() => setMobileOpen(false)}
+              className="mt-2 w-full rounded-lg border border-[#005ea2] text-[#005ea2] px-4 py-2 text-sm font-medium hover:bg-[#d9e8f6]"
+            >
+              Book Your Consultation
+            </button>
           </div>
         </div>
       </header>
 
       {/* HERO */}
-      <section className="relative bg-[#f5f6f7]">
-        <div className="mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-10 items-center py-14">
+      <section
+        className="relative bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: "url('/Hero.png')" }}
+      >
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative mx-auto max-w-7xl px-4 grid lg:grid-cols-2 gap-10 items-center py-20">
           <div>
-            <p className="text-[11px] uppercase tracking-widest text-[#005ea2]">Brightel Tax Services – Business Accounting Experts</p>
-            <h1 className="mt-2 text-3xl/tight sm:text-4xl md:text-5xl font-semibold">
-              Smart Accounting. Real Compliance. <span className="text-[#005ea2]">Scalable Growth.</span>
-            </h1>
-            <p className="mt-4 text-slate-700 max-w-xl">
-              We provide comprehensive Accounting, Bookkeeping, Payroll, and Tax Compliance for businesses—helping you stay audit-ready,
-              compliant, and confident in every financial decision.
+            <p className="text-[11px] uppercase tracking-widest text-[#fdb81e] font-medium">
+              Brightel Tax Services – Business Accounting Experts
+            </p>
+            <h2 className="mt-2 text-3xl sm:text-4xl md:text-5xl font-semibold text-white drop-shadow-md">
+              Smart Accounting. Real Compliance.{" "}
+              <span className="text-[#fdb81e]">Scalable Growth.</span>
+            </h2>
+            <p className="mt-4 text-slate-100 max-w-xl drop-shadow">
+              We provide comprehensive Accounting, Bookkeeping, Payroll, and Tax
+              Compliance for businesses—helping you stay audit-ready, compliant, and
+              confident in every financial decision.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <button className="rounded-lg bg-[#005ea2] hover:bg-[#0b4778] px-4 py-2.5 text-white">Schedule a Call</button>
-              <button className="rounded-lg border border-[#005ea2] text-[#005ea2] hover:bg-[#d9e8f6] px-4 py-2.5">
+              <button className="rounded-lg bg-[#005ea2] hover:bg-[#0b4778] px-4 py-2.5 text-white">
+                Schedule a Call
+              </button>
+              <button className="rounded-lg border border-[#fdb81e] text-[#fdb81e] hover:bg-[#fdb81e]/10 px-4 py-2.5">
                 Download Key Dates Calendar
               </button>
             </div>
           </div>
-          <div>
-            <OrbitBrightel />
-          </div>
         </div>
 
-        {/* 3 quick highlights */}
-        <div className="mx-auto max-w-7xl px-4 pb-10 grid sm:grid-cols-3 gap-4">
-          {[
-            { t: "Business-Only Focus", d: "We serve companies, not individuals—precision books, on-time filings, audit-ready data." },
-            { t: "Local + Federal Expertise", d: "Northern VA, DC, MD know-how with multi-state and DCAA compliance." },
-            { t: "Cloud-Based Systems", d: "Real-time access, automated reporting, secure document sharing." },
-          ].map((c, i) => (
-            <div key={i} className="rounded-xl bg-white p-5 shadow-sm border border-slate-200">
-              <div className="flex items-center gap-3"><Icon /><h3 className="font-semibold">{c.t}</h3></div>
-              <p className="mt-3 text-sm text-slate-600">{c.d}</p>
-              <div className="mt-4 text-xs text-slate-500 flex items-center gap-2"><StatDot /> <span>Learn More</span></div>
-            </div>
-          ))}
+        {/* Highlights under hero (on top of overlay) */}
+        <div className="relative z-10">
+          <HighlightsSection />
         </div>
       </section>
 
-{/* WHO WE ARE */}
-<section id="who" className="relative bg-white">
-  <div className="mx-auto max-w-7xl px-4 py-16 grid lg:grid-cols-2 gap-10 items-stretch">
-    
-    {/* LEFT — Text */}
-    <div className="flex flex-col justify-center h-full">
-      <h2 className="text-2xl sm:text-3xl font-semibold text-[#1a4480] max-w-2xl">Who We Are</h2>
-
-      <p className="mt-4 text-slate-700 leading-relaxed">
-        At Brightel Tax Services, we’re more than tax preparers — we’re your financial partners. Our team helps small and mid-sized
-        companies gain control of their finances through accurate reporting, proactive compliance, and scalable accounting systems.
-        Whether you’re a retail franchise, medical office, convenience store, or government contractor, we ensure your books are precise,
-        your filings are on time, and your financials reflect the real health of your business.
-      </p>
-
-      <p className="mt-4 text-slate-700 leading-relaxed">
-        Our approach is built on consistency and transparency. We utilize cutting-edge accounting technology to simplify processes,
-        reduce manual errors, and provide you with clear, real-time financial visibility. Every client receives personalized attention,
-        timely communication, and a dedicated accounting professional focused on your business growth.
-      </p>
-
-      <div className="mt-6 grid sm:grid-cols-2 gap-4">
-        <div className="rounded-xl border border-slate-200 p-4 bg-[#f9fafb]">
-          <p className="text-sm font-semibold text-[#1a4480]">Coverage</p>
-          <p className="mt-2 text-sm text-slate-600">
-            Serving clients locally and nationwide with remote capability, ensuring seamless communication and compliance across all regions.
-          </p>
-        </div>
-        <div className="rounded-xl border border-slate-200 p-4 bg-[#f9fafb]">
-          <p className="text-sm font-semibold text-[#1a4480]">Outcomes</p>
-          <p className="mt-2 text-sm text-slate-600">
-            Clean books, timely filings, and decision-ready financials—month after month, backed by experienced professionals who care about your success.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    {/* RIGHT — Image */}
-    <div className="flex justify-center items-center h-full">
-      <img
-        src="/about.png"
-        alt="Brightel Tax Services team – who we are"
-        className="w-full h-full rounded-xl object-cover shadow-md"
-        style={{ minHeight: "420px", maxHeight: "580px", objectPosition: "center" }}
-      />
-    </div>
-  </div>
-</section>
-
-
-
-
-      {/* CORE SERVICES */}
-     {/* CORE SERVICES */}
-<section id="services" className="bg-[#f5f6f7]">
-  <div className="mx-auto max-w-7xl px-4 py-12">
-    <h3 className="text-lg font-semibold text-[#1a4480]">Our Core Services</h3>
-
-    <div className="mt-6 grid md:grid-cols-2 gap-6">
-      {[
-        {
-          icon: <FaCalculator className="text-[#1a4480] text-3xl" />,
-          t: "Accounting & Bookkeeping",
-          d: "Day-to-day bookkeeping, GL maintenance, AP/AR, sales & inventory tracking, sales tax filing, bank/CC recs, financial statements, cash-flow & profitability reporting, month-end & year-end close."
-        },
-        {
-          icon: <FaFileInvoiceDollar className="text-[#1a4480] text-3xl" />,
-          t: "Payroll Accounting & Reporting",
-          d: "Payroll processing for all employee types; federal and state payroll tax filings (941, 940, W-2, W-3, SUTA); withholdings, benefits, year-end payroll reports."
-        },
-        {
-          icon: <FaRegChartBar className="text-[#1a4480] text-3xl" />,
-          t: "Government Contract Accounting (DCAA-Compliant)",
-          d: "Compliant bookkeeping, indirect rate calculations (fringe/overhead/G&A), timekeeping & labor allocation, incurred cost submissions, forward pricing, audit readiness."
-        },
-        {
-          icon: <FaCloud className="text-[#1a4480] text-3xl" />,
-          t: "Systems & Cloud Accounting",
-          d: "QuickBooks Desktop/Online, Deltek Costpoint & GCS Premier, Sage, Xero. Real-time access, automation, secure sharing, scalable setups."
-        },
-        {
-          icon: <FaHandshake className="text-[#1a4480] text-3xl" />,
-          t: "Business Accounting & Advisory",
-          d: "System setup & process optimization, budgeting & forecasting, cash-flow management, expense analysis, bank-readiness, and annual filings & tax prep for LLCs, Corporations (C & S), Partnerships, Nonprofits, and Sole Proprietors."
-        },
-        {
-          icon: <FaUsersCog className="text-[#1a4480] text-3xl" />,
-          t: "Transparent Pricing & Dedicated Accountants",
-          d: "Clear fees, proactive communication, and a dedicated team focused on compliance and growth."
-        },
-      ].map((card, i) => (
-        <div
-          key={i}
-          className="rounded-xl bg-white p-6 shadow-sm border border-slate-200 flex items-start gap-4 hover:shadow-md transition"
-        >
-          <div className="flex-shrink-0">{card.icon}</div>
+      {/* WHO WE ARE */}
+      <section id="who" className="relative bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-16 grid lg:grid-cols-2 gap-10 items-center">
           <div>
-            <h4 className="font-semibold text-[#1a4480]">{card.t}</h4>
-            <p className="mt-1 text-sm text-slate-600">{card.d}</p>
-          </div>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
- {/* WIDE CTA */}
-<section className="relative">
-  <div className="mx-auto max-w-7xl px-4 py-6"> {/* reduced from py-10 → py-6 */}
-    <div className="relative overflow-hidden rounded-2xl">
-      <img
-        src="/Cta.png"
-        alt="Brightel CTA"
-        className="w-full h-[560px] object-cover" // 🔥 set fixed image height
-      />
-      <div className="absolute inset-0 bg-[#1a4480]/10"></div>
-      <div className="absolute inset-0 p-4 sm:p-8 md:p-10 flex items-center">
-        <div className="text-white max-w-lg">
-          <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#fdb81e]">
-            Compliance without chaos
-          </p>
-          <h3 className="mt-2 text-xl sm:text-2xl font-semibold leading-snug">
-            Put your accounting, payroll, and filings in expert hands.
-          </h3>
-          <button className="mt-4 rounded-lg bg-[#fdb81e] px-4 py-2 text-[#1a4480] font-medium hover:brightness-95">
-            Book Your Consultation
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-      {/* INDUSTRIES */}
-<section id="industries" className="bg-white">
-  <div className="mx-auto max-w-7xl px-4 py-12">
-    <h3 className="text-lg font-semibold text-[#1a4480]">Industries We Serve</h3>
-
-    <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      {[
-        { name: "Restaurants & Franchise Owners", icon: <FaUtensils className="text-[#fdb81e] text-2xl" /> },
-        { name: "Medical & Dental Offices", icon: <FaStethoscope className="text-[#fdb81e] text-2xl" /> },
-        { name: "Convenience Stores & Gas Stations", icon: <FaGasPump className="text-[#fdb81e] text-2xl" /> },
-        { name: "Retail & E-Commerce", icon: <FaShoppingCart className="text-[#fdb81e] text-2xl" /> },
-        { name: "Professional & Service Firms", icon: <FaBriefcase className="text-[#fdb81e] text-2xl" /> },
-        { name: "Construction & Trade Businesses", icon: <FaHardHat className="text-[#fdb81e] text-2xl" /> },
-        { name: "Government Contractors", icon: <FaLandmark className="text-[#fdb81e] text-2xl" /> },
-        { name: "Nonprofits", icon: <FaHandsHelping className="text-[#fdb81e] text-2xl" /> },
-        { name: "Technology & Startups", icon: <FaLaptopCode className="text-[#fdb81e] text-2xl" /> },
-      ].map((item, i) => (
-        <div
-          key={i}
-          className="flex items-start gap-4 rounded-xl border border-slate-200 p-5 bg-white hover:shadow-md transition-shadow duration-200"
-        >
-          <div className="flex-shrink-0 mt-1">
-            {item.icon}
-          </div>
-          <div>
-            <h4 className="font-medium text-[#1a4480]">{item.name}</h4>
-            <p className="mt-2 text-sm text-slate-600">
-              Specialized bookkeeping, compliance, and reporting tailored to your model.
+            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1a4480]">
+              Who We Are
+            </h3>
+            <p className="mt-4 text-slate-700 leading-relaxed">
+              At Brightel Tax Services, we’re more than tax preparers — we’re your financial
+              partners. Our team helps small and mid-sized companies gain control of their
+              finances through accurate reporting, proactive compliance, and scalable accounting
+              systems.
+            </p>
+            <p className="mt-4 text-slate-700 leading-relaxed">
+              Whether you’re a retail franchise, medical office, convenience store, or government
+              contractor, we ensure your books are precise, your filings are on time, and your
+              financials reflect the real health of your business.
             </p>
           </div>
+          <div className="flex justify-center">
+            <img
+              src="/about.png"
+              alt="Brightel Tax Services team – who we are"
+              className="w-full h-[420px] rounded-xl object-cover shadow-md"
+              style={{ objectPosition: "center" }}
+            />
+          </div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-     {/* KEY DATES / COUNTDOWN */}
-<section id="dates" className="bg-[#f5f6f7]">
-  <div className="mx-auto max-w-7xl px-4 py-12">
-    <div className="grid lg:grid-cols-2 gap-20 items-stretch">
-      
-      {/* LEFT — Table Section */}
-      <div>
-        <h3 className="text-lg font-semibold text-[#1a4480]">Tax Year Countdown & Key Filing Dates</h3>
-        <div className="mt-3 rounded-lg bg-white border border-slate-200 p-4">
-          <p className="text-sm">
-            <span className="font-semibold">Current Countdown:</span> 72 Days Left to File Corporate Returns (March 15, 2026)
-          </p>
-          <p className="text-sm mt-1">Schedule your tax review today to avoid last-minute penalties.</p>
+      {/* CORE SERVICES */}
+      <section id="services" className="bg-[#f5f6f7]">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <h3 className="text-lg font-semibold text-[#1a4480]">Our Core Services</h3>
+          <div className="mt-6 grid md:grid-cols-2 gap-6">
+            {[
+              {
+                icon: <FaCalculator className="text-[#1a4480] text-3xl" />,
+                t: "Accounting & Bookkeeping",
+                d: "Day-to-day bookkeeping, GL maintenance, AP/AR, sales & inventory tracking, sales tax filing, bank/CC recs, financial statements, cash-flow & profitability reporting, month-end & year-end close."
+              },
+              {
+                icon: <FaFileInvoiceDollar className="text-[#1a4480] text-3xl" />,
+                t: "Payroll Accounting & Reporting",
+                d: "Payroll processing for all employee types; federal and state payroll tax filings (941, 940, W-2, W-3, SUTA); withholdings, benefits, year-end payroll reports."
+              },
+              {
+                icon: <FaRegChartBar className="text-[#1a4480] text-3xl" />,
+                t: "Government Contract Accounting (DCAA-Compliant)",
+                d: "Compliant bookkeeping, indirect rate calculations (fringe/overhead/G&A), timekeeping & labor allocation, incurred cost submissions, forward pricing, audit readiness."
+              },
+              {
+                icon: <FaCloud className="text-[#1a4480] text-3xl" />,
+                t: "Systems & Cloud Accounting",
+                d: "QuickBooks Desktop/Online, Deltek Costpoint & GCS Premier, Sage, Xero. Real-time access, automation, secure sharing, scalable setups."
+              },
+              {
+                icon: <FaHandshake className="text-[#1a4480] text-3xl" />,
+                t: "Business Accounting & Advisory",
+                d: "System setup & process optimization, budgeting & forecasting, cash-flow management, expense analysis, bank-readiness, and annual filings & tax prep for LLCs, Corporations (C & S), Partnerships, Nonprofits, and Sole Proprietors."
+              },
+              {
+                icon: <FaUsersCog className="text-[#1a4480] text-3xl" />,
+                t: "Transparent Pricing & Dedicated Accountants",
+                d: "Clear fees, proactive communication, and a dedicated team focused on compliance and growth."
+              },
+            ].map((card, i) => (
+              <div
+                key={i}
+                className="rounded-xl bg-white p-6 shadow-sm border border-slate-200 flex items-start gap-4 hover:shadow-md transition"
+              >
+                <div className="flex-shrink-0">{card.icon}</div>
+                <div>
+                  <h4 className="font-semibold text-[#1a4480]">{card.t}</h4>
+                  <p className="mt-1 text-sm text-slate-600">{card.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </section>
 
-        <div className="mt-6 overflow-x-auto rounded-lg border border-slate-200">
-          <table className="min-w-full bg-white text-sm">
-            <thead>
-              <tr className="bg-[#d9e8f6] text-left">
-                <th className="px-4 py-2">Date</th>
-                <th className="px-4 py-2">Deadline</th>
-                <th className="px-4 py-2">Applies To</th>
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["Jan 15", "Q4 Estimated Tax Payment", "All Businesses"],
-                ["Jan 31", "W-2 & 1099 Forms Due to Employees/Contractors", "Employers"],
-                ["Mar 15", "S-Corp & Partnership Returns (1120-S, 1065)", "S Corps, Partnerships"],
-                ["Apr 15", "C-Corp Returns & Q1 Estimated Taxes", "C Corporations"],
-                ["Jun 15", "Q2 Estimated Taxes", "All Businesses"],
-                ["Sep 15", "Q3 Estimated Taxes", "All Businesses"],
-                ["Dec 31", "Year-End Payroll, 401(k), and Expense Adjustments", "All Employers"],
-              ].map((r, i) => (
-                <tr key={i} className="border-t">
-                  <td className="px-4 py-2">{r[0]}</td>
-                  <td className="px-4 py-2">{r[1]}</td>
-                  <td className="px-4 py-2">{r[2]}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+      {/* WIDE CTA */}
+      <section className="relative">
+        <div className="mx-auto max-w-7xl px-4 py-6">
+          <div className="relative overflow-hidden rounded-2xl">
+            <img
+              src="/Cta.png"
+              alt="Brightel CTA"
+              className="w-full h-[560px] object-cover"
+            />
+            <div className="absolute inset-0 bg-[#1a4480]/10" />
+            <div className="absolute inset-0 p-4 sm:p-8 md:p-10 flex items-center">
+              <div className="text-white max-w-lg">
+                <p className="text-sm sm:text-base font-semibold uppercase tracking-widest text-[#fdb81e]">
+                  Compliance without chaos
+                </p>
+                <h3 className="mt-2 text-xl sm:text-2xl font-semibold leading-snug">
+                  Put your accounting, payroll, and filings in expert hands.
+                </h3>
+                <button className="mt-4 rounded-lg bg-[#fdb81e] px-4 py-2 text-[#1a4480] font-medium hover:brightness-95">
+                  Book Your Consultation
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      {/* RIGHT — Image Section */}
-      <div className="flex justify-center items-stretch">
-        <img
-          src="/table.png"
-          alt="Tax filing deadlines illustration"
-          className="w-full h-full rounded-xl shadow-md object-cover"
-          style={{ minHeight: "100%", maxHeight: "600px" }}
-        />
-      </div>
+      {/* INDUSTRIES */}
+      <section id="industries" className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <h3 className="text-lg font-semibold text-[#1a4480]">Industries We Serve</h3>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { name: "Restaurants & Franchise Owners", icon: <FaUtensils className="text-[#fdb81e] text-2xl" /> },
+              { name: "Medical & Dental Offices", icon: <FaStethoscope className="text-[#fdb81e] text-2xl" /> },
+              { name: "Convenience Stores & Gas Stations", icon: <FaGasPump className="text-[#fdb81e] text-2xl" /> },
+              { name: "Retail & E-Commerce", icon: <FaShoppingCart className="text-[#fdb81e] text-2xl" /> },
+              { name: "Professional & Service Firms", icon: <FaBriefcase className="text-[#fdb81e] text-2xl" /> },
+              { name: "Construction & Trade Businesses", icon: <FaHardHat className="text-[#fdb81e] text-2xl" /> },
+              { name: "Government Contractors", icon: <FaLandmark className="text-[#fdb81e] text-2xl" /> },
+              { name: "Nonprofits", icon: <FaHandsHelping className="text-[#fdb81e] text-2xl" /> },
+              { name: "Technology & Startups", icon: <FaLaptopCode className="text-[#fdb81e] text-2xl" /> },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex items-start gap-4 rounded-xl border border-slate-200 p-5 bg-white hover:shadow-md transition-shadow duration-200"
+              >
+                <div className="flex-shrink-0 mt-1">{item.icon}</div>
+                <div>
+                  <h4 className="font-medium text-[#1a4480]">{item.name}</h4>
+                  <p className="mt-2 text-sm text-slate-600">
+                    Specialized bookkeeping, compliance, and reporting tailored to your model.
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    </div>
-  </div>
-</section>
+      {/* KEY DATES / COUNTDOWN */}
+      <section id="dates" className="bg-[#f5f6f7]">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="grid lg:grid-cols-2 gap-20 items-stretch">
+            {/* LEFT — Table */}
+            <div>
+              <h3 className="text-lg font-semibold text-[#1a4480]">Tax Year Countdown & Key Filing Dates</h3>
+              <div className="mt-3 rounded-lg bg-white border border-slate-200 p-4">
+                <p className="text-sm">
+                  <span className="font-semibold">Current Countdown:</span> 72 Days Left to File Corporate Returns (March 15, 2026)
+                </p>
+                <p className="text-sm mt-1">Schedule your tax review today to avoid last-minute penalties.</p>
+              </div>
 
+              <div className="mt-6 overflow-x-auto rounded-lg border border-slate-200">
+                <table className="min-w-full bg-white text-sm">
+                  <thead>
+                    <tr className="bg-[#d9e8f6] text-left">
+                      <th className="px-4 py-2">Date</th>
+                      <th className="px-4 py-2">Deadline</th>
+                      <th className="px-4 py-2">Applies To</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      ["Jan 15", "Q4 Estimated Tax Payment", "All Businesses"],
+                      ["Jan 31", "W-2 & 1099 Forms Due to Employees/Contractors", "Employers"],
+                      ["Mar 15", "S-Corp & Partnership Returns (1120-S, 1065)", "S Corps, Partnerships"],
+                      ["Apr 15", "C-Corp Returns & Q1 Estimated Taxes", "C Corporations"],
+                      ["Jun 15", "Q2 Estimated Taxes", "All Businesses"],
+                      ["Sep 15", "Q3 Estimated Taxes", "All Businesses"],
+                      ["Dec 31", "Year-End Payroll, 401(k), and Expense Adjustments", "All Employers"],
+                    ].map((r, i) => (
+                      <tr key={i} className="border-t">
+                        <td className="px-4 py-2">{r[0]}</td>
+                        <td className="px-4 py-2">{r[1]}</td>
+                        <td className="px-4 py-2">{r[2]}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* RIGHT — Image */}
+            <div className="flex justify-center items-stretch">
+              <img
+                src="/table.png"
+                alt="Tax filing deadlines illustration"
+                className="w-full h-full rounded-xl shadow-md object-cover"
+                style={{ minHeight: "100%", maxHeight: "600px" }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* IRS RESOURCES */}
       <section id="resources" className="bg-white">
@@ -368,7 +376,7 @@ export default function ScaleAccountingLanding() {
                 className="rounded-lg border border-slate-200 p-4 hover:bg-[#d9e8f6]/40 transition"
               >
                 <div className="flex items-start gap-3">
-                  <Icon />
+                  <div className="h-10 w-10 rounded-full bg-[#fdb81e] text-[#1a4480] grid place-items-center font-bold">★</div>
                   <div>
                     <p className="font-medium">{row[0]}</p>
                     <p className="text-sm text-slate-600">{row[1]}</p>
@@ -387,21 +395,18 @@ export default function ScaleAccountingLanding() {
           <div className="grid md:grid-cols-[1fr_.8fr] gap-6 items-center">
             <div className="rounded-xl bg-white border border-slate-200 p-6">
               <h4 className="font-semibold">Service Areas</h4>
-              <p className="text-sm text-slate-700 mt-2">
-                
-                Remote clients nationwide
-              </p>
+              <p className="text-sm text-slate-700 mt-2">Remote clients nationwide</p>
 
               <div className="mt-6 rounded-lg bg-[#1a4480] text-white p-5">
                 <p className="text-sm">Let’s Simplify Your Accounting</p>
                 <p className="text-sm mt-1">Call: (XXX) XXX-XXXX • Email: info@brighteltax.com</p>
                 <button className="mt-3 rounded-md bg-[#fdb81e] text-[#1a4480] px-3 py-2 text-sm font-medium hover:brightness-95">
-                  Schedule Your  Consultation
+                  Schedule Your Consultation
                 </button>
               </div>
             </div>
             <div>
-              <img src="/Contact.png" alt="" />
+              <img src="/Contact.png" alt="Contact" className="w-full rounded-xl object-cover" />
             </div>
           </div>
         </div>
@@ -411,7 +416,7 @@ export default function ScaleAccountingLanding() {
       <footer className="bg-[#1a4480] text-neutral-100">
         <div className="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8">
           <div>
-            <div className="h-9 w-36 rounded bg-white/10 grid place-items-center text-[11px]">BRIGHTEL TAX SERVICES</div>
+            <h4 className="text-2xl font-bold text-neutral-100">Brightel Tax</h4>
             <p className="mt-4 text-sm text-white/80 max-w-xs">
               Smart Accounting. Real Compliance. Scalable Growth.
             </p>
@@ -419,16 +424,23 @@ export default function ScaleAccountingLanding() {
           <div>
             <h5 className="text-sm font-semibold text-white">Navigation</h5>
             <ul className="mt-3 space-y-2 text-sm text-white/80">
-              <li><a href="#services">Services</a></li>
-              <li><a href="#industries">Industries</a></li>
-              <li><a href="#dates">Key Dates</a></li>
-              <li><a href="#resources">IRS Resources</a></li>
-              <li><a href="#contact">Contact</a></li>
+              {[
+                ["Services","services"],
+                ["Industries","industries"],
+                ["Key Dates","dates"],
+                ["IRS Resources","resources"],
+                ["Contact","contact"],
+              ].map(([label,id])=>(
+                <li key={id}>
+                  <Link to={id} smooth duration={700} offset={-80} className="cursor-pointer hover:text-[#fdb81e]">
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
             <h5 className="text-sm font-semibold text-white">Contact</h5>
-            {/* Removed address line */}
             <p className="mt-2 text-sm">Email: info@brighteltax.com</p>
             <p className="text-sm">Phone: (XXX) XXX-XXXX</p>
           </div>
