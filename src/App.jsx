@@ -10,7 +10,7 @@ import ContactPage from "./pages/ContactPage";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ScrollToTop from "./Components/ScrollToTop";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Layout() {
   return (
