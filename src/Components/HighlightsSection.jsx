@@ -1,3 +1,5 @@
+
+
 import React, { useRef, useState } from "react";
 import { FaBriefcase, FaBalanceScale, FaCloud } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
@@ -94,3 +96,8 @@ export default function HighlightsSection() {
     </div>
   );
 }
+
+
+
+
+

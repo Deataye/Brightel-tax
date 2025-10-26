@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
-import HighlightsSection from "../components/HighlightsSection";
+import HighlightsSection from "../components/HighlightsSection"
 import Services from "../components/Services";
 
 // Icons
@@ -57,7 +57,7 @@ export default function ScaleAccountingLanding() {
   return (
     <div className="text-slate-800">
       {/* Top utility bar */}
-     
+      
 
       {/* HERO */}
       <section
