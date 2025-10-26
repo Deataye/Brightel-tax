@@ -2,20 +2,22 @@ import React from "react";
 import { Routes, Route, Outlet } from "react-router-dom";
 
 
-import Footer from "./components/Footer";
+
 
 import Homepage from "./pages/Homepage";
 import ServicePage from "./pages/ServicePage";
 import ContactPage from "./pages/ContactPage";
-import ScrollToTop from "./Components/ScrollToTop";
+
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import ScrollToTop from "./Components/ScrollToTop";
 
 function Layout() {
   return (
     <>
       <Navbar/>
       <Outlet />
-      <Footer />
+      <Footer/>
     </>
   );
 }
