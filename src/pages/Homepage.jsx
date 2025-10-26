@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink } from "react-router-dom";
-
 import HighlightsSection from "../components/HighlightsSection";
 import Services from "../components/Services";
 
