@@ -1,157 +1,64 @@
 // ScaleAccountingLanding.jsx
 import React, { useState } from "react";
-import { Link } from "react-scroll";
-import HighlightsSection from "../Components/HighlightsSection";
+import { Link as ScrollLink } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
+
+import HighlightsSection from "../components/HighlightsSection";
+import Services from "../components/Services";
 
 // Icons
 import {
-  FaCalculator, FaUsersCog, FaCloud, FaHandshake, FaRegChartBar, FaFileInvoiceDollar,
   FaUtensils, FaStethoscope, FaGasPump, FaShoppingCart, FaBriefcase,
   FaHardHat, FaLandmark, FaHandsHelping, FaLaptopCode
 } from "react-icons/fa";
-import { FiMenu, FiX } from "react-icons/fi";
-import Services from "../components/Services";
+
 
 export default function ScaleAccountingLanding() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  // 1) Minimal posts (no image field needed)
-const posts = [
-  {
-    id: 1,
-    title: "S-Corp vs. LLC: Which Structure Lowers Your Tax Burden?",
-    date: "Jan 10, 2026",
-    tag: "Entity Strategy",
-    excerpt:
-      "Choosing the right entity structure can reduce self-employment taxes and optimize owner compensation. Here’s how to think about S-Corp elections in 2026.",
-    href: "#",
-  },
-  {
-    id: 2,
-    title: "2026 Payroll Checklist: W-2, 1099-NEC, and State Filings",
-    date: "Jan 05, 2026",
-    tag: "Payroll",
-    excerpt:
-      "Deadlines, forms, and common pitfalls for employers—what you need in one simple checklist to stay compliant and avoid penalties.",
-    href: "#",
-  },
-  {
-    id: 3,
-    title: "Cloud Accounting Stack: Our Favorite 5 Automations",
-    date: "Dec 18, 2025",
-    tag: "Systems",
-    excerpt:
-      "From automated bill pay to bank rules and receipt capture—these tools save hours each month and keep your books audit-ready.",
-    href: "#",
-  },
-  {
-    id: 4,
-    title: "DCAA Basics for New GovCon Firms",
-    date: "Dec 02, 2025",
-    tag: "GovCon",
-    excerpt:
-      "Timekeeping, indirect rates, and incurred cost submissions—what contracting officers expect and how to prepare from day one.",
-    href: "#",
-  },
-];
+  
+  // Text-only blog posts
+  const posts = [
+    {
+      id: 1,
+      title: "S-Corp vs. LLC: Which Structure Lowers Your Tax Burden?",
+      date: "Jan 10, 2026",
+      tag: "Entity Strategy",
+      excerpt:
+        "Choosing the right entity structure can reduce self-employment taxes and optimize owner compensation. Here’s how to think about S-Corp elections in 2026.",
+      href: "#",
+    },
+    {
+      id: 2,
+      title: "2026 Payroll Checklist: W-2, 1099-NEC, and State Filings",
+      date: "Jan 05, 2026",
+      tag: "Payroll",
+      excerpt:
+        "Deadlines, forms, and common pitfalls for employers—what you need in one simple checklist to stay compliant and avoid penalties.",
+      href: "#",
+    },
+    {
+      id: 3,
+      title: "Cloud Accounting Stack: Our Favorite 5 Automations",
+      date: "Dec 18, 2025",
+      tag: "Systems",
+      excerpt:
+        "From automated bill pay to bank rules and receipt capture—these tools save hours each month and keep your books audit-ready.",
+      href: "#",
+    },
+    {
+      id: 4,
+      title: "DCAA Basics for New GovCon Firms",
+      date: "Dec 02, 2025",
+      tag: "GovCon",
+      excerpt:
+        "Timekeeping, indirect rates, and incurred cost submissions—what contracting officers expect and how to prepare from day one.",
+      href: "#",
+    },
+  ];
 
   return (
     <div className="text-slate-800">
       {/* Top utility bar */}
-      <div className="w-full bg-[#1a4480] text-white text-[13px]">
-        <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
-          <span className="hidden sm:inline opacity-90">info@brighteltax.com</span>
-          <button className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium hover:brightness-95">
-            (XXX) XXX-XXXX
-          </button>
-        </div>
-      </div>
-
-      {/* Header / Nav */}
-      <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#005ea2]/20">
-        <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-          {/* Brand */}
-          <h1 className="text-xl sm:text-2xl font-bold text-[#1a4480]">
-            Brightel Tax
-          </h1>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6 text-sm">
-            {[
-              ["Services", "services"],
-              ["Who We Are", "who"],
-              ["Industries", "industries"],
-              ["Key Dates", "dates"],
-              ["IRS Resources", "resources"],
-              ["Contact", "contact"],
-            ].map(([label, id]) => (
-              <Link
-                key={id}
-                to={id}
-                smooth
-                duration={700}
-                offset={-80}
-                spy
-                activeClass="text-[#fdb81e]"
-                className="hover:text-[#005ea2] cursor-pointer transition-colors"
-              >
-                {label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-2">
-            <button className="rounded-lg border border-[#005ea2] text-[#005ea2] px-3 py-2 text-sm hover:bg-[#d9e8f6]">
-              Book Your Consultation
-            </button>
-          </div>
-
-          {/* Mobile Hamburger */}
-          <button
-            aria-label="Toggle navigation"
-            onClick={() => setMobileOpen((v) => !v)}
-            className="md:hidden inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-700"
-          >
-            {mobileOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-slate-200 ${
-            mobileOpen ? "max-h-96" : "max-h-0"
-          }`}
-        >
-          <div className="px-4 py-3 space-y-2 bg-white">
-            {[
-              ["Services", "services"],
-              ["Who We Are", "who"],
-              ["Industries", "industries"],
-              ["Key Dates", "dates"],
-              ["IRS Resources", "resources"],
-              ["Contact", "contact"],
-            ].map(([label, id]) => (
-              <Link
-                key={id}
-                to={id}
-                smooth
-                duration={700}
-                offset={-80}
-                onClick={() => setMobileOpen(false)}
-                className="block py-2 hover:text-[#005ea2] cursor-pointer"
-              >
-                {label}
-              </Link>
-            ))}
-            <button
-              onClick={() => setMobileOpen(false)}
-              className="mt-2 w-full rounded-lg border border-[#005ea2] text-[#005ea2] px-4 py-2 text-sm font-medium hover:bg-[#d9e8f6]"
-            >
-              Book Your Consultation
-            </button>
-          </div>
-        </div>
-      </header>
+     
 
       {/* HERO */}
       <section
@@ -174,17 +81,26 @@ const posts = [
               confident in every financial decision.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <button className="rounded-lg bg-[#005ea2] hover:bg-[#0b4778] px-4 py-2.5 text-white">
+              {/* Schedule a Call → /contact */}
+              <RouterLink
+                to="/contact"
+                className="rounded-lg bg-[#005ea2] hover:bg-[#0b4778] px-4 py-2.5 text-white"
+              >
                 Schedule a Call
-              </button>
-              <button className="rounded-lg border border-[#fdb81e] text-[#fdb81e] hover:bg-[#fdb81e]/10 px-4 py-2.5">
+              </RouterLink>
+
+              {/* Keep as file download (or change to RouterLink if you want it to go to /contact too) */}
+              <a
+                href="/Key-Dates.pdf"
+                className="rounded-lg border border-[#fdb81e] text-[#fdb81e] hover:bg-[#fdb81e]/10 px-4 py-2.5"
+              >
                 Download Key Dates Calendar
-              </button>
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Highlights under hero (on top of overlay) */}
+        {/* Highlights under hero */}
         <div className="relative z-10">
           <HighlightsSection />
         </div>
@@ -220,11 +136,13 @@ const posts = [
         </div>
       </section>
 
-     {/* CORE SERVICES */}
-<section id="services" className="bg-[#f5f6f7]">
- <Services/>
-</section>
-
+      {/* CORE SERVICES */}
+      <section id="services" className="bg-[#f5f6f7]">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <h3 className="text-xl font-semibold text-[#1a4480]">Our Core Services</h3>
+          <Services />
+        </div>
+      </section>
 
       {/* WIDE CTA */}
       <section className="relative">
@@ -244,9 +162,13 @@ const posts = [
                 <h3 className="mt-2 text-xl sm:text-2xl font-semibold leading-snug">
                   Put your accounting, payroll, and filings in expert hands.
                 </h3>
-                <button className="mt-4 rounded-lg bg-[#fdb81e] px-4 py-2 text-[#1a4480] font-medium hover:brightness-95">
+                {/* Book Your Consultation → /contact */}
+                <RouterLink
+                  to="/contact"
+                  className="mt-4 inline-block rounded-lg bg-[#fdb81e] px-4 py-2 text-[#1a4480] font-medium hover:brightness-95"
+                >
                   Book Your Consultation
-                </button>
+                </RouterLink>
               </div>
             </div>
           </div>
@@ -382,7 +304,7 @@ const posts = [
         </div>
       </section>
 
-      {/* CONTACT / CTA */}
+      {/* CONTACT / CTA (in-page content) */}
       <section id="contact" className="relative">
         <div className="mx-auto max-w-7xl px-4 py-10">
           <div className="grid md:grid-cols-[1fr_.8fr] gap-6 items-center">
@@ -393,9 +315,13 @@ const posts = [
               <div className="mt-6 rounded-lg bg-[#1a4480] text-white p-5">
                 <p className="text-sm">Let’s Simplify Your Accounting</p>
                 <p className="text-sm mt-1">Call: (XXX) XXX-XXXX • Email: info@brighteltax.com</p>
-                <button className="mt-3 rounded-md bg-[#fdb81e] text-[#1a4480] px-3 py-2 text-sm font-medium hover:brightness-95">
+                {/* Schedule Your Consultation → /contact */}
+                <RouterLink
+                  to="/contact"
+                  className="mt-3 inline-block rounded-md bg-[#fdb81e] text-[#1a4480] px-3 py-2 text-sm font-medium hover:brightness-95"
+                >
                   Schedule Your Consultation
-                </button>
+                </RouterLink>
               </div>
             </div>
             <div>
@@ -404,109 +330,63 @@ const posts = [
           </div>
         </div>
       </section>
+
       {/* BLOGS — text-only cards (no images) */}
-<section id="blogs" className="bg-white">
-  <div className="mx-auto max-w-7xl px-4 py-12">
-    <div className="flex items-end justify-between gap-4">
-      <div>
-        <h3 className="text-lg font-semibold text-[#1a4480]">From the Blog</h3>
-        <p className="text-sm text-slate-600 mt-1">
-          Practical guidance on tax, payroll, cloud systems, and compliance.
-        </p>
-      </div>
-      <a href="#" className="hidden sm:inline text-sm text-[#005ea2] hover:underline">
-        View all posts →
-      </a>
-    </div>
-
-    <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-      {posts.map((p) => (
-        <article
-          key={p.id}
-          className="group rounded-xl border border-slate-200 bg-white hover:shadow-md transition-shadow"
-        >
-          {/* Icon header instead of image */}
-          <div className="p-4 border-b border-slate-100 flex items-center gap-3">
-            <div className="h-10 w-10 rounded-full bg-[#d9e8f6] text-[#0b4778] grid place-items-center text-sm font-semibold">
-              {p.tag.slice(0, 1)}
+      <section id="blogs" className="bg-white">
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <h3 className="text-lg font-semibold text-[#1a4480]">From the Blog</h3>
+              <p className="text-sm text-slate-600 mt-1">
+                Practical guidance on tax, payroll, cloud systems, and compliance.
+              </p>
             </div>
-            <div className="ml-auto text-[11px] text-slate-500">{p.date}</div>
-          </div>
-
-          <div className="p-4">
-            <span className="inline-flex items-center rounded-full bg-[#f6f9fc] text-[#0b4778] px-2 py-0.5 text-[11px] font-medium">
-              {p.tag}
-            </span>
-            <h4 className="mt-2 font-semibold text-slate-900 group-hover:text-[#005ea2]">
-              {p.title}
-            </h4>
-            <p className="mt-2 text-sm text-slate-600 line-clamp-3">{p.excerpt}</p>
-            <a
-              href={p.href}
-              className="mt-3 inline-flex items-center text-sm text-[#005ea2] hover:underline"
-            >
-              Read more →
+            <a href="#" className="hidden sm:inline text-sm text-[#005ea2] hover:underline">
+              View all posts →
             </a>
           </div>
-        </article>
-      ))}
-    </div>
 
-    <div className="sm:hidden mt-6">
-      <a href="#" className="block text-sm text-center text-[#005ea2] hover:underline">
-        View all posts →
-      </a>
-    </div>
-  </div>
-</section>
+          <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {posts.map((p) => (
+              <article
+                key={p.id}
+                className="group rounded-xl border border-slate-200 bg-white hover:shadow-md transition-shadow"
+              >
+                <div className="p-4 border-b border-slate-100 flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-full bg-[#d9e8f6] text-[#0b4778] grid place-items-center text-sm font-semibold">
+                    {p.tag.slice(0, 1)}
+                  </div>
+                  <div className="ml-auto text-[11px] text-slate-500">{p.date}</div>
+                </div>
 
+                <div className="p-4">
+                  <span className="inline-flex items-center rounded-full bg-[#f6f9fc] text-[#0b4778] px-2 py-0.5 text-[11px] font-medium">
+                    {p.tag}
+                  </span>
+                  <h4 className="mt-2 font-semibold text-slate-900 group-hover:text-[#005ea2]">
+                    {p.title}
+                  </h4>
+                  <p className="mt-2 text-sm text-slate-600 line-clamp-3">{p.excerpt}</p>
+                  <a
+                    href={p.href}
+                    className="mt-3 inline-flex items-center text-sm text-[#005ea2] hover:underline"
+                  >
+                    Read more →
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
 
-      {/* FOOTER */}
-      <footer className="bg-[#1a4480] text-neutral-100">
-        <div className="mx-auto max-w-7xl px-4 py-12 grid md:grid-cols-4 gap-8">
-          <div>
-            <h4 className="text-2xl font-bold text-neutral-100">Brightel Tax</h4>
-            <p className="mt-4 text-sm text-white/80 max-w-xs">
-              Smart Accounting. Real Compliance. Scalable Growth.
-            </p>
-          </div>
-          <div>
-            <h5 className="text-sm font-semibold text-white">Navigation</h5>
-            <ul className="mt-3 space-y-2 text-sm text-white/80">
-              {[
-                ["Services","services"],
-                ["Industries","industries"],
-                ["Key Dates","dates"],
-                ["IRS Resources","resources"],
-                ["Contact","contact"],
-              ].map(([label,id])=>(
-                <li key={id}>
-                  <Link to={id} smooth duration={700} offset={-80} className="cursor-pointer hover:text-[#fdb81e]">
-                    {label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h5 className="text-sm font-semibold text-white">Contact</h5>
-            <p className="mt-2 text-sm">Email: info@brighteltax.com</p>
-            <p className="text-sm">Phone: (XXX) XXX-XXXX</p>
-          </div>
-          <div>
-            <h5 className="text-sm font-semibold text-white">Call to Action</h5>
-            <button className="mt-4 rounded-lg bg-[#fdb81e] px-3 py-2 text-[#1a4480] text-sm font-medium hover:brightness-95">
-              Book Your Consultation
-            </button>
+          <div className="sm:hidden mt-6">
+            <a href="#" className="block text-sm text-center text-[#005ea2] hover:underline">
+              View all posts →
+            </a>
           </div>
         </div>
-        <div className="border-t border-white/10">
-          <div className="mx-auto max-w-7xl px-4 py-4 text-xs text-white/80 flex items-center justify-between">
-            <span>© {new Date().getFullYear()} Brightel Tax Services | Smart Accounting. Real Compliance. Scalable Growth.</span>
-            <span>Privacy • Terms</span>
-          </div>
-        </div>
-      </footer>
+      </section>
+
+    
     </div>
   );
 }

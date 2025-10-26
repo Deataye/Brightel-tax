@@ -6,7 +6,7 @@ import { services } from "../data/services"; // path may vary depending on your 
 const Services = () => {
   return (
     
-    <div className="mt-6 grid md:grid-cols-2 gap-6">
+    <div className="mt-6  grid md:grid-cols-2 gap-6">
   {services.map((card) => {
     const Icon = card.icon;
     return (
