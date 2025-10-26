@@ -8,7 +8,7 @@ import Homepage from "./pages/Homepage";
 import ServicePage from "./pages/ServicePage";
 import ContactPage from "./pages/ContactPage";
 
-import Navbar from  "./components/Navbar";
+import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 

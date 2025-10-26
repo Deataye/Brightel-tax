@@ -1,13 +1,44 @@
 import React, { useState } from "react";
 import { Link as ScrollLink } from "react-scroll";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
+
+const NavItem = ({ id, label, onHit }) => {
+  const location = useLocation();
+  const onHome = location.pathname === "/";
+
+  // If on home: smooth scroll. Else: route to hash; Home will render and the browser jumps to the id.
+  return onHome ? (
+    <ScrollLink
+      to={id}
+      smooth
+      duration={700}
+      offset={-80}
+      spy
+      onClick={onHit}
+      activeClass="text-[#fdb81e]"
+      className="hover:text-[#005ea2] cursor-pointer transition-colors"
+    >
+      {label}
+    </ScrollLink>
+  ) : (
+    <RouterLink
+      to={`/#${id}`}
+      onClick={onHit}
+      className="hover:text-[#005ea2] transition-colors"
+    >
+      {label}
+    </RouterLink>
+  );
+};
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+  const onHome = location.pathname === "/";
 
   return (
-    <div>
+    <>
       {/* Top utility bar */}
       <div className="w-full bg-[#1a4480] text-white text-[13px]">
         <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
@@ -21,17 +52,19 @@ const Navbar = () => {
       {/* Main Navbar */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-[#005ea2]/20">
         <div className="mx-auto max-w-7xl px-4 py-3 flex items-center justify-between">
-          
-          {/* ✅ Brand links to homepage */}
+          {/* Brand → route home and scroll to top */}
           <RouterLink
             to="/"
             className="text-xl sm:text-2xl font-bold text-[#1a4480] hover:text-[#005ea2] transition-colors"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            onClick={() => {
+              // If already on home, smooth scroll to top; router nav will handle the rest if not.
+              if (onHome) window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
           >
             Brightel Tax
           </RouterLink>
 
-          {/* Desktop Navigation (react-scroll links) */}
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
             {[
               ["Services", "services"],
@@ -41,22 +74,11 @@ const Navbar = () => {
               ["IRS Resources", "resources"],
               ["Contact", "contact"],
             ].map(([label, id]) => (
-              <ScrollLink
-                key={id}
-                to={id}
-                smooth
-                duration={700}
-                offset={-80}
-                spy
-                activeClass="text-[#fdb81e]"
-                className="hover:text-[#005ea2] cursor-pointer transition-colors"
-              >
-                {label}
-              </ScrollLink>
+              <NavItem key={id} id={id} label={label} />
             ))}
           </nav>
 
-          {/* Desktop CTA (Router link to /contact) */}
+          {/* Desktop CTA → /contact */}
           <div className="hidden md:flex items-center gap-2">
             <RouterLink
               to="/contact"
@@ -69,7 +91,7 @@ const Navbar = () => {
           {/* Mobile Hamburger */}
           <button
             aria-label="Toggle navigation"
-            onClick={() => setMobileOpen((v) => !v)}
+            onClick={() => setMobileOpen(v => !v)}
             className="md:hidden inline-flex items-center justify-center rounded-md border border-slate-200 p-2 text-slate-700"
           >
             {mobileOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
@@ -91,20 +113,15 @@ const Navbar = () => {
               ["IRS Resources", "resources"],
               ["Contact", "contact"],
             ].map(([label, id]) => (
-              <ScrollLink
+              <NavItem
                 key={id}
-                to={id}
-                smooth
-                duration={700}
-                offset={-80}
-                onClick={() => setMobileOpen(false)}
-                className="block py-2 hover:text-[#005ea2] cursor-pointer"
-              >
-                {label}
-              </ScrollLink>
+                id={id}
+                label={label}
+                onHit={() => setMobileOpen(false)}
+              />
             ))}
 
-            {/* Mobile CTA (RouterLink to /contact) */}
+            {/* Mobile CTA → /contact */}
             <RouterLink
               to="/contact"
               onClick={() => setMobileOpen(false)}
@@ -115,7 +132,7 @@ const Navbar = () => {
           </div>
         </div>
       </header>
-    </div>
+    </>
   );
 };
 
