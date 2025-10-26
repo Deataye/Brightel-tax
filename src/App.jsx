@@ -27,6 +27,7 @@ export default function App() {
     <>
     <ScrollToTop/>
     <Routes>
+      
       {/* All routes that should show Navbar + Footer live under this layout */}
       <Route element={<Layout />}>
         <Route path="/" element={<Homepage />} />
