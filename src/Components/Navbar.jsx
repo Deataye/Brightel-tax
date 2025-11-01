@@ -3,11 +3,11 @@ import { Link as ScrollLink } from "react-scroll";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import { FiMenu, FiX } from "react-icons/fi";
 
-const NavItem = ({ id, label, onHit }) => {
+const NavItem = ({ id, label, onHit, className = "" }) => {
   const location = useLocation();
   const onHome = location.pathname === "/";
 
-  // If on home: smooth scroll. Else: route to hash; Home will render and the browser jumps to the id.
+  // On home: smooth scroll. Else: route to "/#id".
   return onHome ? (
     <ScrollLink
       to={id}
@@ -17,7 +17,7 @@ const NavItem = ({ id, label, onHit }) => {
       spy
       onClick={onHit}
       activeClass="text-[#fdb81e]"
-      className="hover:text-[#005ea2] cursor-pointer transition-colors"
+      className={`cursor-pointer transition-colors ${className}`}
     >
       {label}
     </ScrollLink>
@@ -25,7 +25,7 @@ const NavItem = ({ id, label, onHit }) => {
     <RouterLink
       to={`/#${id}`}
       onClick={onHit}
-      className="hover:text-[#005ea2] transition-colors"
+      className={`transition-colors ${className}`}
     >
       {label}
     </RouterLink>
@@ -34,8 +34,6 @@ const NavItem = ({ id, label, onHit }) => {
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const location = useLocation();
-  const onHome = location.pathname === "/";
 
   return (
     <>
@@ -56,15 +54,12 @@ const Navbar = () => {
           <RouterLink
             to="/"
             className="text-xl sm:text-2xl font-bold text-[#1a4480] hover:text-[#005ea2] transition-colors"
-            onClick={() => {
-              // If already on home, smooth scroll to top; router nav will handle the rest if not.
-              if (onHome) window.scrollTo({ top: 0, behavior: "smooth" });
-            }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
             Brightel Tax
           </RouterLink>
 
-          {/* Desktop nav */}
+          {/* Desktop nav (row) */}
           <nav className="hidden md:flex items-center gap-6 text-sm">
             {[
               ["Services", "services"],
@@ -74,7 +69,12 @@ const Navbar = () => {
               ["IRS Resources", "resources"],
               ["Contact", "contact"],
             ].map(([label, id]) => (
-              <NavItem key={id} id={id} label={label} />
+              <NavItem
+                key={id}
+                id={id}
+                label={label}
+                className="hover:text-[#005ea2]"
+              />
             ))}
           </nav>
 
@@ -98,13 +98,13 @@ const Navbar = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu (column) */}
         <div
           className={`md:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out border-t border-slate-200 ${
             mobileOpen ? "max-h-96" : "max-h-0"
           }`}
         >
-          <div className="px-4 py-3 space-y-2 bg-white">
+          <div className="px-4 py-3 bg-white flex flex-col space-y-1">
             {[
               ["Services", "services"],
               ["Who We Are", "who"],
@@ -118,6 +118,7 @@ const Navbar = () => {
                 id={id}
                 label={label}
                 onHit={() => setMobileOpen(false)}
+                className="block w-full py-2 text-base hover:text-[#005ea2]"
               />
             ))}
 
@@ -137,15 +138,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
- 
-
-
-
-
-
-
-
-
-
-
-

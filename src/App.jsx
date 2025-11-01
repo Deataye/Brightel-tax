@@ -6,6 +6,7 @@ import ContactPage from "./pages/ContactPage";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
+import BlogPage from "./pages/BlogPage";
 function Layout() {
   return (
     <>
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/contact" element={<ContactPage />} />{" "}
           {/* 404 that still shows Navbar/Footer */}{" "}
           <Route path="*" element={<div className="p-8">Not Found</div>} />{" "}
+          <Route path="/blog/:slug" element={<BlogPage />} />{" "}
         </Route>{" "}
       </Routes>{" "}
     </>
