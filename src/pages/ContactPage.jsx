@@ -63,7 +63,7 @@ export default function ContactPage() {
         "service_hvyinqd",
         "template_kl2xmxk",
         formElRef.current,
-        { publicKey: "YOUR_PUBLIC_KEY" }
+        { publicKey: "GYWjhkznaehrSoZsB" }
       );
 
       if (result?.status !== 200) throw new Error("EmailJS failed");
