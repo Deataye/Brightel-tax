@@ -208,9 +208,7 @@ export default function ServicePage() {
               <p className="mt-2 text-sm text-slate-600">
                 Get scope and pricing tailored to your stack and timelines.
               </p>
-              <button className="mt-4 w-full rounded-lg bg-[#fdb81e] text-[#1a4480] px-4 py-2 font-medium hover:brightness-95">
-                {service.ctaText}
-              </button>
+              
 
               <div className="mt-6">
                 <h5 className="text-sm font-semibold text-slate-900">Explore other services</h5>

@@ -41,9 +41,9 @@ const Navbar = () => {
       <div className="w-full bg-[#1a4480] text-white text-[13px]">
         <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
           <span className="hidden sm:inline opacity-90">info@brighteltax.com</span>
-          <button className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium hover:brightness-95">
+          <span className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium ">
             (XXX) XXX-XXXX
-          </button>
+          </span>
         </div>
       </div>
 

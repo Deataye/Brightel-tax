@@ -35,11 +35,9 @@ export default function ScaleAccountingLanding() {
   const blogsRef = useRef(null);
 
   useLayoutEffect(() => {
-    // Guard & register
     if (typeof window === "undefined") return;
     gsap.registerPlugin(ScrollTrigger);
 
-    // Scope GSAP to this page only
     const ctx = gsap.context(() => {
       // 1) Page enter (subtle)
       gsap.fromTo(
@@ -48,7 +46,7 @@ export default function ScaleAccountingLanding() {
         { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
       );
 
-      // 2) Hero staged intro (headline + paragraph + buttons)
+      // 2) Hero staged intro
       if (heroRef.current) {
         const parts = heroRef.current.querySelectorAll("[data-hero]");
         gsap.fromTo(
@@ -65,7 +63,7 @@ export default function ScaleAccountingLanding() {
         );
       }
 
-      // 3) Generic "reveal on scroll" for all [data-reveal]
+      // 3) Generic reveal-on-scroll
       const revealSets = gsap.utils.toArray("[data-reveal]");
       revealSets.forEach((el) => {
         gsap.set(el, { autoAlpha: 0, y: 24 });
@@ -82,7 +80,7 @@ export default function ScaleAccountingLanding() {
         });
       });
 
-      // 4) Optional: stagger groups inside a section
+      // 4) Stagger services cards
       const servicesCards =
         servicesRef.current?.querySelectorAll("[data-reveal-card]");
       if (servicesCards?.length) {
@@ -101,6 +99,7 @@ export default function ScaleAccountingLanding() {
         });
       }
 
+      // 5) Stagger industry cards
       const industryCards =
         industriesRef.current?.querySelectorAll("[data-reveal-card]");
       if (industryCards?.length) {
@@ -122,6 +121,35 @@ export default function ScaleAccountingLanding() {
 
     return () => ctx.revert();
   }, []);
+
+  // 🔢 Dynamic countdown helper
+  const getCountdownMessage = () => {
+    const today = new Date();
+    const deadline = new Date("2025-11-14"); // <-- change date here if needed
+
+    // Normalize to midnight to avoid timezone weirdness
+    today.setHours(0, 0, 0, 0);
+    deadline.setHours(0, 0, 0, 0);
+
+    const diffTime = deadline - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    if (diffDays > 1) {
+      return `${diffDays} Days Left to File Corporate Returns (March 15, 2026)`;
+    }
+
+    if (diffDays === 1) {
+      return `1 Day Left to File Corporate Returns (March 15, 2026)`;
+    }
+
+    if (diffDays === 0) {
+      return `Today is the Deadline for Corporate Returns (March 15, 2026)`;
+    }
+
+    return `Deadline Passed ${Math.abs(
+      diffDays
+    )} Days Ago (March 15, 2026)`;
+  };
 
   return (
     <div ref={pageRef} className="text-slate-800">
@@ -160,12 +188,19 @@ export default function ScaleAccountingLanding() {
                 Schedule a Call
               </RouterLink>
 
-              <a
-                href="/Key-Dates.pdf"
+              {/* Smooth scroll to Key Dates section */}
+              <button
+                type="button"
+                onClick={() => {
+                  const el = document.getElementById("dates");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
                 className="rounded-lg border border-[#fdb81e] text-[#fdb81e] hover:bg-[#fdb81e]/10 px-4 py-2.5"
               >
                 Download Key Dates Calendar
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -213,7 +248,6 @@ export default function ScaleAccountingLanding() {
           <h3 className="text-xl font-semibold text-[#1a4480]">
             Our Core Services
           </h3>
-          {/* Tip: inside Services, add data-reveal-card to each card root for the stagger above */}
           <Services />
         </div>
       </section>
@@ -322,8 +356,8 @@ export default function ScaleAccountingLanding() {
               </h3>
               <div className="mt-3 rounded-lg bg-white border border-slate-200 p-4">
                 <p className="text-sm">
-                  <span className="font-semibold">Current Countdown:</span> 72
-                  Days Left to File Corporate Returns (March 15, 2026)
+                  <span className="font-semibold">Current Countdown:</span>{" "}
+                  {getCountdownMessage()}
                 </p>
                 <p className="text-sm mt-1">
                   Schedule your tax review today to avoid last-minute penalties.
