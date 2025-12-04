@@ -63,7 +63,7 @@ export default function ContactPage() {
         "service_hvyinqd",
         "template_kl2xmxk",
         formElRef.current,
-        { publicKey: "GYWjhkznaehrSoZsB" }
+        { publicKey: " GYWjhkznaehrSoZsB" }
       );
 
       if (result?.status !== 200) throw new Error("EmailJS failed");
@@ -123,14 +123,14 @@ export default function ContactPage() {
                   <FaPhoneAlt className="mt-1 text-[#fdb81e]" />
                   <div>
                     <p className="font-medium">Call Us</p>
-                    <p className="text-sm mt-1">(XXX) XXX-XXXX</p>
+                    <p className="text-sm mt-1">(571) 390-3088</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
                   <FaEnvelope className="mt-1 text-[#fdb81e]" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-sm mt-1">info@brighteltax.com</p>
+                    <p className="text-sm mt-1">inquiry@brighteltaxservices.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">

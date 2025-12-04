@@ -525,7 +525,7 @@ export default function ScaleAccountingLanding() {
               <div className="mt-6 rounded-lg bg-[#1a4480] text-white p-5">
                 <p className="text-sm">Let’s Simplify Your Accounting</p>
                 <p className="text-sm mt-1">
-                  Call: (XXX) XXX-XXXX • Email: info@brighteltax.com
+                  Call: (571) 390-3088 • Email: inquiry@brighteltaxservices.com
                 </p>
                 <RouterLink
                   to="/contact"

@@ -53,8 +53,8 @@ const Footer = () => {
 
         <div>
           <h5 className="text-sm font-semibold text-white">Contact</h5>
-          <p className="mt-2 text-sm">Email: info@brighteltax.com</p>
-          <p className="text-sm">Phone: (XXX) XXX-XXXX</p>
+          <p className="mt-2 text-sm">Email: inquiry@brighteltaxservices.com</p>
+          <p className="text-sm">Phone: (571) 390-3088</p>
         </div>
 
         <div>

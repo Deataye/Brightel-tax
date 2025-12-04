@@ -40,9 +40,9 @@ const Navbar = () => {
       {/* Top utility bar */}
       <div className="w-full bg-[#1a4480] text-white text-[13px]">
         <div className="mx-auto max-w-7xl px-4 py-2 flex items-center justify-between">
-          <span className="hidden sm:inline opacity-90">info@brighteltax.com</span>
+          <span className="hidden sm:inline opacity-90">inquiry@brighteltaxservices.com</span>
           <span className="rounded-md bg-[#fdb81e] px-3 py-1.5 text-[#1a4480] font-medium ">
-            (XXX) XXX-XXXX
+            (571) 390-3088
           </span>
         </div>
       </div>
