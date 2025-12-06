@@ -60,10 +60,10 @@ export default function ContactPage() {
       // Map your state fields to the template variables you created in EmailJS
       // Using sendForm so EmailJS can read inputs by their "name" attributes
       const result = await emailjs.sendForm(
-        "service_hvyinqd",
-        "template_kl2xmxk",
+        "service_7fnp8s5",
+        "template_3uzatf8",
         formElRef.current,
-        { publicKey: " GYWjhkznaehrSoZsB" }
+        { publicKey: "Bhk8BI4NTKBpgqQeD" }
       );
 
       if (result?.status !== 200) throw new Error("EmailJS failed");
